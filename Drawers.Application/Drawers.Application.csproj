@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Drawers.Application</AssemblyName>
+    <RootNamespace>Drawers.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Drawers.Domain\Drawers.Domain.csproj" />
+    <ProjectReference Include="..\Drawers.Persistence\Drawers.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.1.0" />
+    <PackageReference Include="MediatR" Version="5.1.0" />
+  </ItemGroup>
+</Project>
