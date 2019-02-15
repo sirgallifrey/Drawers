@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Drawers.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using NSwag.AspNetCore;
+using NJsonSchema;
 
 using Drawers.Application.Customers.Queries.GetCustomersList;
 
@@ -39,6 +41,9 @@ namespace Drawers.WebUi
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSwaggerDocument();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +60,7 @@ namespace Drawers.WebUi
             }
 
             //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
             //app.UseSpaStaticFiles();
 
             app.UseMvc(routes =>
