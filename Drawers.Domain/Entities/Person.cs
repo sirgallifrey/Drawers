@@ -13,7 +13,7 @@ namespace Drawers.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime? Birthdate { get; set; }
-        public string Cpf { get; set; }
+        public CPF Cpf { get; set; }
         public ICollection<PhoneNumber> PhoneNumbers { get; private set; }
     }
 }
