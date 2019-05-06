@@ -1,3 +1,4 @@
+//using AutoMapper;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
@@ -11,8 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using NSwag.AspNetCore;
 using NJsonSchema;
-
+using FluentValidation.AspNetCore;
+using Drawers.Application.Infrastructure;
 using Drawers.Application.Customers.Queries.GetCustomersList;
+using Drawers.Application.Customers.Commands.CreateCustomer;
 
 namespace Drawers.WebUi
 {
@@ -28,9 +31,12 @@ namespace Drawers.WebUi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(GetCustomersListQueryHandler).GetTypeInfo().Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddFluentValidation(
+                fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerCommandValidator>()
+            );
+            
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<DrawersDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("DrawersDB"))
@@ -42,8 +48,7 @@ namespace Drawers.WebUi
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddSwaggerDocument();
-
+            services.AddSwaggerDocument();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +67,9 @@ namespace Drawers.WebUi
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseSpaStaticFiles();
+    
+            app.UseSwagger();
+            app.UseSwaggerUi3();
 
             app.UseMvc(routes =>
             {
@@ -83,8 +91,7 @@ namespace Drawers.WebUi
             //     }
             // });
 
-            app.UseSwagger();
-            app.UseSwaggerUi3();
+            
         }
     }
 }

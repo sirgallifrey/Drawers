@@ -6,7 +6,7 @@ namespace Drawers.Application.Customers.Commands.CreateCustomer
     {
         public CreateCustomerCommandValidator()
         {
-            RuleFor(x => x.Name).MaximumLength(40);
+            RuleFor(x => x.Name).MaximumLength(30);
         }
     }
 }

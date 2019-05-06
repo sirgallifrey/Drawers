@@ -27,7 +27,6 @@ namespace Drawers.Application.Customers.Queries.GetCustomersList
                         Name = c.Name
                     }).ToListAsync(cancellationToken)
             };
-
             return vm;
         }
     }

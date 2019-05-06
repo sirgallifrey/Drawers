@@ -37,7 +37,7 @@ namespace Drawers.WebUi.Controllers
             return Ok(await _mediator.Send(command));
         }
 
-        // // PUT api/customers/5
+        // PUT api/customers/5
         // [HttpPut("{id}")]
         // public async Task<IActionResult> Update(string id, [FromBody]UpdateCustomerCommand command)
         // {
